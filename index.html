@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b34">
+  <meta name="description" content="Dashboard interativo Tips com Plotly.js, DuckDB-Wasm e Parquet, hospedado no GitHub Pages.">
+  <title>Tips Analytics | Dashboard</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.plot.ly/plotly-4.2.0.min.js" charset="utf-8" defer></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand"><span class="brand-icon">T<span>.</span></span><div><strong>Tips Analytics</strong><small>DATA STUDIO / DEMO</small></div></div>
+      <div class="nav-label">VISÃO GERAL</div>
+      <a href="#overview" class="nav-item active"><span class="nav-dot"></span>Dashboard</a>
+      <a href="#insights" class="nav-item"><span class="nav-dot outline"></span>Visualizações</a>
+      <div class="sidebar-bottom"><span class="online-dot"></span> DuckDB-Wasm no navegador <small>Fonte: tips.parquet · 244 registros</small></div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar"><div class="breadcrumb">Analytics <span>/</span> <strong>Restaurant Performance</strong></div><a class="repo-link" href="https://github.com/thiagoishie/githubpages" target="_blank" rel="noopener noreferrer">Ver repositório <span aria-hidden="true">↗</span></a></header>
+      <div class="content-wrap">
+        <div class="heading-row"><div><p class="eyebrow">PAINEL INTERATIVO</p><h1>Visão geral de vendas</h1><p class="subtitle">Contas, gorjetas e comportamento dos clientes · Dataset Tips</p></div><span class="source-pill">● &nbsp; Parquet + SQL</span></div>
+        <div id="status" class="status loading" role="status" aria-live="polite">Carregando dados e preparando visualizações…</div>
+
+        <section class="filters" aria-labelledby="filter-title">
+          <div class="filter-heading"><h2 id="filter-title">Filtros</h2><button id="reset-filters" type="button" class="reset-button">Limpar filtros ↺</button></div>
+          <div class="filters-grid">
+            <label>Dia<select id="day"><option value="">Todos</option></select></label>
+            <label>Período<select id="time"><option value="">Todos</option></select></label>
+            <label>Sexo<select id="sex"><option value="">Todos</option></select></label>
+            <label>Fumante<select id="smoker"><option value="">Todos</option></select></label>
+            <label>Pessoas na mesa<select id="size"><option value="">Todos</option></select></label>
+          </div>
+        </section>
+
+        <section class="kpis" aria-label="Principais indicadores">
+          <article class="kpi-card"><span>Faturamento</span><strong id="kpi-revenue">—</strong><small>Valor total das contas</small></article>
+          <article class="kpi-card"><span>Gorjetas recebidas</span><strong id="kpi-tips">—</strong><small>Somatório de gorjetas</small></article>
+          <article class="kpi-card"><span>Gorjeta média</span><strong id="kpi-average">—</strong><small>Por conta</small></article>
+          <article class="kpi-card"><span>Contas</span><strong id="kpi-count">—</strong><small>Registros selecionados</small></article>
+          <article class="kpi-card"><span>Taxa de gorjeta</span><strong id="kpi-rate">—</strong><small>Gorjetas ÷ faturamento</small></article>
+        </section>
+
+        <section id="insights" class="charts-grid" aria-label="Gráficos interativos">
+          <article class="chart-card"><div class="chart-heading"><div><h2>Conta vs. Gorjeta</h2><p>Relação entre consumo e valor da gorjeta</p></div><span class="chart-tag">DISPERSÃO</span></div><div class="plot" id="chart-scatter"></div></article>
+          <article class="chart-card"><div class="chart-heading"><div><h2>Faturamento por dia</h2><p>Receita agregada por dia da semana</p></div><span class="chart-tag">BARRAS</span></div><div class="plot" id="chart-bar"></div></article>
+          <article class="chart-card"><div class="chart-heading"><div><h2>Distribuição das gorjetas</h2><p>Variação das gorjetas por dia e período</p></div><span class="chart-tag">BOXPLOT</span></div><div class="plot" id="chart-box"></div></article>
+          <article class="chart-card"><div class="chart-heading"><div><h2>Valores das contas</h2><p>Distribuição de consumo por período</p></div><span class="chart-tag">HISTOGRAMA</span></div><div class="plot" id="chart-hist"></div></article>
+          <article class="chart-card full-width"><div class="chart-heading"><div><h2>Composição do faturamento</h2><p>Participação de cada dia e período; cor = taxa de gorjeta</p></div><span class="chart-tag">TREEMAP</span></div><div class="plot wide" id="chart-treemap"></div></article>
+        </section>
+        <footer>Dados demonstrativos Plotly Tips · Valores em USD · Consultas locais no navegador · Nenhum servidor Python necessário</footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
